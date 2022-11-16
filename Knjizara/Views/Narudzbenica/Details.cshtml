@@ -1,0 +1,26 @@
+﻿@model Knjizara.Models.EFRepository.Narudzbenica
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Narudzbenica</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.datum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datum)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Izmeni", "Edit", new { id = Model.IDNarudzbenice }) |
+    @Html.ActionLink("Nazad na listu narudžbenica", "Index")
+</p>

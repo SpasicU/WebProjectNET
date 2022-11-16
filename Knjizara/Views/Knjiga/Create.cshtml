@@ -1,0 +1,99 @@
+﻿@model Knjizara.Models.EFRepository.Knjiga
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Kreiraj novo izdanje knjige</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "Morate uneti sve podatke!!", new { @class = "text-danger" })
+    @* @Html.HiddenFor(model => model.IDKnjige) *@
+
+    <div>
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-success">
+                <danger>Success!</danger>
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">ID nove knjige</label>
+        <div class="col-md-10" onchange="UserCheck()">
+            @Html.EditorFor(model => model.IDKnjige, new { htmlAttributes = new { @class = "form-control", placeholder = "Unesite jedinstveni ID" } })
+            @Html.ValidationMessageFor(model => model.IDKnjige, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Autor knjige</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.autor, new { htmlAttributes = new { @class = "form-control", placeholder = "Unesite ime autora" } })
+            @Html.ValidationMessageFor(model => model.autor, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Naslov knjige</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.naziv, new { htmlAttributes = new { @class = "form-control", placeholder = "Unesite naslov" } })
+            @Html.ValidationMessageFor(model => model.naziv, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.tiraz, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tiraz, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.tiraz, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Izdavačka kuća</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.izdavastvo, new { htmlAttributes = new { @class = "form-control", placeholder = "Unesite izdavačku kuću" } })
+            @Html.ValidationMessageFor(model => model.izdavastvo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Godina izdanja knjige</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.godinaIzdanja, new { htmlAttributes = new { @class = "form-control", placeholder = "Unesite godinu izdanja" } })
+            @Html.ValidationMessageFor(model => model.godinaIzdanja, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Jedinična cena</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.jedCena, new { htmlAttributes = new { @class = "form-control", placeholder = "Unesite cenu knjige" } })
+            @Html.ValidationMessageFor(model => model.jedCena, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Kreiraj novo izdanje" class="btn btn-default" />
+        </div>
+    </div>
+
+</div>
+}
+
+<div>
+    @Html.ActionLink("Lista knjiga", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KnjizaraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="Knjiga">
+    <Key>
+      <PropertyRef Name="IDKnjige" />
+    </Key>
+    <Property Name="IDKnjige" Type="Int32" Nullable="false" />
+    <Property Name="autor" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="naziv" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tiraz" Type="Int32" Nullable="false" />
+    <Property Name="izdavastvo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="godinaIzdanja" Type="Int32" Nullable="false" />
+    <Property Name="jedCena" Type="Single" Nullable="false" />
+    <NavigationProperty Name="Magacin" Relationship="Self.FK_Magacin_Knjiga" FromRole="Knjiga" ToRole="Magacin" />
+    <NavigationProperty Name="StavkaRacuna" Relationship="Self.FK_StavkaRacuna_Knjiga" FromRole="Knjiga" ToRole="StavkaRacuna" />
+  </EntityType>
+  <EntityType Name="Magacin">
+    <Key>
+      <PropertyRef Name="redBroj" />
+      <PropertyRef Name="IDKnjige" />
+    </Key>
+    <Property Name="redBroj" Type="Int32" Nullable="false" />
+    <Property Name="IDKnjige" Type="Int32" Nullable="false" />
+    <Property Name="stanje" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Knjiga" Relationship="Self.FK_Magacin_Knjiga" FromRole="Magacin" ToRole="Knjiga" />
+    <NavigationProperty Name="StavkaNarudzbenice" Relationship="Self.FK_StavkaNarudzbenice_Magacin" FromRole="Magacin" ToRole="StavkaNarudzbenice" />
+  </EntityType>
+  <EntityType Name="Narudzbenica">
+    <Key>
+      <PropertyRef Name="IDNarudzbenice" />
+    </Key>
+    <Property Name="IDNarudzbenice" Type="Int32" Nullable="false" />
+    <Property Name="datum" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="StavkaNarudzbenice1" Relationship="KnjizaraModel.FK_StavkaNarudzbenice_Narudzbenica1" FromRole="Narudzbenica" ToRole="StavkaNarudzbenice" />
+  </EntityType>
+  <EntityType Name="Racun">
+    <Key>
+      <PropertyRef Name="IDRacuna" />
+    </Key>
+    <Property Name="IDRacuna" Type="Int32" Nullable="false" />
+    <Property Name="datumVreme" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ukVrednost" Type="Single" Nullable="false" />
+    <Property Name="obradjen" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="StavkaRacuna" Relationship="Self.FK_StavkaRacuna_Racun" FromRole="Racun" ToRole="StavkaRacuna" />
+  </EntityType>
+  <EntityType Name="StavkaNarudzbenice">
+    <Key>
+      <PropertyRef Name="IDStavkaNarudzbenice" />
+      <PropertyRef Name="IDNarudzbenice" />
+      <PropertyRef Name="redBroj" />
+    </Key>
+    <Property Name="IDStavkaNarudzbenice" Type="Int32" Nullable="false" />
+    <Property Name="IDNarudzbenice" Type="Int32" Nullable="false" />
+    <Property Name="redBroj" Type="Int32" Nullable="false" />
+    <Property Name="IDKnjige" Type="Int32" Nullable="false" />
+    <Property Name="kolicina" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Magacin" Relationship="Self.FK_StavkaNarudzbenice_Magacin" FromRole="StavkaNarudzbenice" ToRole="Magacin" />
+    <NavigationProperty Name="Narudzbenica1" Relationship="KnjizaraModel.FK_StavkaNarudzbenice_Narudzbenica1" FromRole="StavkaNarudzbenice" ToRole="Narudzbenica" />
+  </EntityType>
+  <EntityType Name="StavkaRacuna">
+    <Key>
+      <PropertyRef Name="IDStavkaRacuna" />
+      <PropertyRef Name="IDRacuna" />
+      <PropertyRef Name="IDKnjige" />
+    </Key>
+    <Property Name="IDStavkaRacuna" Type="Int32" Nullable="false" />
+    <Property Name="IDRacuna" Type="Int32" Nullable="false" />
+    <Property Name="IDKnjige" Type="Int32" Nullable="false" />
+    <Property Name="kolicina" Type="Int32" Nullable="false" />
+    <Property Name="jedCena" Type="Single" Nullable="false" />
+    <NavigationProperty Name="Knjiga" Relationship="Self.FK_StavkaRacuna_Knjiga" FromRole="StavkaRacuna" ToRole="Knjiga" />
+    <NavigationProperty Name="Racun" Relationship="Self.FK_StavkaRacuna_Racun" FromRole="StavkaRacuna" ToRole="Racun" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Magacin_Knjiga">
+    <End Role="Knjiga" Type="Self.Knjiga" Multiplicity="1" />
+    <End Role="Magacin" Type="Self.Magacin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Knjiga">
+        <PropertyRef Name="IDKnjige" />
+      </Principal>
+      <Dependent Role="Magacin">
+        <PropertyRef Name="IDKnjige" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StavkaRacuna_Knjiga">
+    <End Role="Knjiga" Type="Self.Knjiga" Multiplicity="1" />
+    <End Role="StavkaRacuna" Type="Self.StavkaRacuna" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Knjiga">
+        <PropertyRef Name="IDKnjige" />
+      </Principal>
+      <Dependent Role="StavkaRacuna">
+        <PropertyRef Name="IDKnjige" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StavkaNarudzbenice_Magacin">
+    <End Role="Magacin" Type="Self.Magacin" Multiplicity="1" />
+    <End Role="StavkaNarudzbenice" Type="Self.StavkaNarudzbenice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Magacin">
+        <PropertyRef Name="redBroj" />
+        <PropertyRef Name="IDKnjige" />
+      </Principal>
+      <Dependent Role="StavkaNarudzbenice">
+        <PropertyRef Name="redBroj" />
+        <PropertyRef Name="IDKnjige" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StavkaRacuna_Racun">
+    <End Role="Racun" Type="Self.Racun" Multiplicity="1" />
+    <End Role="StavkaRacuna" Type="Self.StavkaRacuna" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Racun">
+        <PropertyRef Name="IDRacuna" />
+      </Principal>
+      <Dependent Role="StavkaRacuna">
+        <PropertyRef Name="IDRacuna" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="KnjizaraEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+    <EntitySet Name="Knjiga" EntityType="Self.Knjiga" />
+    <EntitySet Name="Magacin" EntityType="Self.Magacin" />
+    <EntitySet Name="Narudzbenica" EntityType="Self.Narudzbenica" />
+    <EntitySet Name="Racun" EntityType="Self.Racun" />
+    <EntitySet Name="StavkaNarudzbenice" EntityType="Self.StavkaNarudzbenice" />
+    <EntitySet Name="StavkaRacuna" EntityType="Self.StavkaRacuna" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Magacin_Knjiga" Association="Self.FK_Magacin_Knjiga">
+      <End Role="Knjiga" EntitySet="Knjiga" />
+      <End Role="Magacin" EntitySet="Magacin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StavkaRacuna_Knjiga" Association="Self.FK_StavkaRacuna_Knjiga">
+      <End Role="Knjiga" EntitySet="Knjiga" />
+      <End Role="StavkaRacuna" EntitySet="StavkaRacuna" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StavkaNarudzbenice_Magacin" Association="Self.FK_StavkaNarudzbenice_Magacin">
+      <End Role="Magacin" EntitySet="Magacin" />
+      <End Role="StavkaNarudzbenice" EntitySet="StavkaNarudzbenice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StavkaRacuna_Racun" Association="Self.FK_StavkaRacuna_Racun">
+      <End Role="Racun" EntitySet="Racun" />
+      <End Role="StavkaRacuna" EntitySet="StavkaRacuna" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StavkaNarudzbenice_Narudzbenica1" Association="KnjizaraModel.FK_StavkaNarudzbenice_Narudzbenica1">
+      <End Role="Narudzbenica" EntitySet="Narudzbenica" />
+      <End Role="StavkaNarudzbenice" EntitySet="StavkaNarudzbenice" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_StavkaNarudzbenice_Narudzbenica1">
+    <End Type="KnjizaraModel.Narudzbenica" Role="Narudzbenica" Multiplicity="1" />
+    <End Type="KnjizaraModel.StavkaNarudzbenice" Role="StavkaNarudzbenice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Narudzbenica">
+        <PropertyRef Name="IDNarudzbenice" />
+      </Principal>
+      <Dependent Role="StavkaNarudzbenice">
+        <PropertyRef Name="IDNarudzbenice" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

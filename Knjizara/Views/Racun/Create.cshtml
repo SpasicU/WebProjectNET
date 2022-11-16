@@ -1,0 +1,64 @@
+﻿@model Knjizara.Models.EFRepository.Racun
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Račun</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Kreiraj novi račun</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">ID računa</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IDRacuna, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IDRacuna, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Datum</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.datumVreme, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.datumVreme, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Ukupna vrednost računa</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ukVrednost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ukVrednost, "Unesite 0", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Obrađen</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.obradjen, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.obradjen, "0 za nije, 1 za jeste", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

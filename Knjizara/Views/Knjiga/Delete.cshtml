@@ -1,0 +1,72 @@
+﻿@model Knjizara.Models.EFRepository.Knjiga
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Knjiga</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.autor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.autor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tiraz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tiraz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.izdavastvo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.izdavastvo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.godinaIzdanja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.godinaIzdanja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.jedCena)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.jedCena)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

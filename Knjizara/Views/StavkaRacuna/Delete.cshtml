@@ -1,0 +1,56 @@
+﻿@model Knjizara.Models.EFRepository.StavkaRacuna
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>IZBRIŠI</h2>
+
+<h3>Da li ste sigurni da želite ovo obrisati?</h3>
+<div>
+    <h4>StavkaRacuna</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.kolicina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kolicina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.jedCena)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.jedCena)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Knjiga.autor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Knjiga.autor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Racun.IDRacuna)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Racun.IDRacuna)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Briši" class="btn btn-default" /> |
+            @Html.ActionLink("Nazad", "Index")
+        </div>
+    }
+</div>

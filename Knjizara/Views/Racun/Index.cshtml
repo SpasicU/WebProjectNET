@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Knjizara.Models.EFRepository.Racun>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>RAČUNI</h2>
+
+
+
+<p>
+    @Html.ActionLink("Kreiraj novi račun", "Create")
+    <br />
+    @Html.ActionLink("Svi računi", "Index")
+</p>
+
+<form method="get" asp-action="Index">
+    <p>
+        <input type="search" placeholder="Upišite ID računa..." value="@ViewData["GetDetails"]" name="Search" style="width: 700px; height:35px;" />
+        <input type="submit" value="Search" class="btn-primary" />
+    </p>
+</form>
+
+<div>
+    @if (TempData["BrisiRacun"] != null)
+    {<div class="alert alert-success">
+            <strong>Uspeh!!</strong>
+        </div>
+    }
+    else if (TempData["nema"] != null)
+    {<div class="alert alert-warning">
+            <strong>Nema trazenog racuna!!</strong>
+        </div>
+    }
+</div>
+
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IDRacuna)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datumVreme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ukVrednost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.obradjen)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDRacuna)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datumVreme)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ukVrednost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.obradjen)
+                </td>
+                <td>
+                    @Html.ActionLink("Izmeni podatke", "Edit", new { id = item.IDRacuna }) |
+                    @Html.ActionLink("Dodaj stavke", "Create", "StavkaRacuna") |
+                    @Html.ActionLink("Briši", "Delete", new { id = item.IDRacuna })
+                </td>
+            </tr>
+        }
+
+    </table>

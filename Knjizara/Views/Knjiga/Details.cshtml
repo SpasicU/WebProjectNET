@@ -1,0 +1,70 @@
+﻿@model Knjizara.Models.EFRepository.Knjiga
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Knjiga</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.autor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.autor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tiraz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tiraz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.izdavastvo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.izdavastvo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.godinaIzdanja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.godinaIzdanja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.jedCena)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.jedCena)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Izmeni", "Edit", new { id = Model.IDKnjige }) |
+    @Html.ActionLink("Nazad na listu", "Index") |
+    @Html.ActionLink("Trazi knjigu", "FindByID")
+</p>
+
+

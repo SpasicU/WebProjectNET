@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Knjizara.Models.EFRepository.Magacin>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Kreiraj Novi Unos", "Create")
+</p>
+
+<form method="get" asp-action="Index">
+    <p>
+        <input type="search" placeholder="Upišite ID knjige" value="@ViewData["GetDetails"]" name="Search" style="width: 700px; height:35px;" />
+        <input type="submit" value="Search" class="btn-primary" />
+    </p>
+</form>
+
+@if (TempData["Message"] != null)
+{<div class="alert alert-success">
+        <strong>Uspeh!!</strong>
+    </div>
+}
+else if (TempData["save"] != null)
+{<div class="alert alert-success">
+        <strong>Uspesno sacuvane izmene!!</strong>
+    </div>
+}
+else if (TempData["nema"] != null)
+{<div class="alert alert-success">
+        <strong>NEMA TRAZENOG UNOSA!!</strong>
+    </div>
+}
+else if (TempData["brisanje"] != null)
+{<div class="alert alert-success">
+        <strong>Uspesno obrisan unos!</strong>
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.redBroj)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDKnjige)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stanje)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Knjiga.autor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Knjiga.naziv)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.redBroj)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDKnjige)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stanje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Knjiga.autor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Knjiga.naziv)
+            </td>
+            <td>
+                @Html.ActionLink("Izmeni stanje", "Edit", new { id = item.redBroj }) |
+                @Html.ActionLink("Izbriši unos", "Delete", new { id = item.redBroj })
+            </td>
+        </tr>
+    }
+
+</table>

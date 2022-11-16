@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Knjizara.Models.EFRepository.Knjiga>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista svih knjiga</h2>
+
+<p>
+    @Html.ActionLink("Kreiraj novu knjigu", "Create")
+    <br />
+    @Html.ActionLink("Sve knjige", "Index")
+</p>
+
+<form method="get" asp-action="Index">
+    <p>
+        <input type="search" placeholder="Upisi naziv knjige, autora ili izdavastvo..." value="@ViewData["GetDetails"]" name="Search" style="width: 700px; height:35px;" />
+        <input type="submit" value="Traži knjigu" class="btn-primary" />
+    </p>
+</form>
+
+<div>
+    @if (TempData["Message"] != null)
+    {<div class="alert alert-success">
+            <strong>Uspeh!!</strong>
+        </div>
+    }
+    else if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            <danger>Neuspesno uneti podaci!!</danger>
+        </div>
+    }
+    else if (TempData["Save"] != null)
+    {
+        <div class="alert alert-success">
+            <danger>Uspenso izmenjeni podaci!!</danger>
+        </div>
+    }
+    else if (TempData["nema"] != null)
+    {
+        <div class="alert alert-warning">
+            <danger>Nema trazene knjige!</danger>
+        </div>
+    }
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            Autor
+            @*@Html.DisplayNameFor(model => model.autor)*@
+        </th>
+        <th>
+            Naziv knjige
+            @*@Html.DisplayNameFor(model => model.naziv)*@
+        </th>
+        <th>
+            Tiraž
+            @*@Html.DisplayNameFor(model => model.tiraz)*@
+        </th>
+        <th>
+            Izdavaštvo
+            @*@Html.DisplayNameFor(model => model.izdavastvo)*@
+        </th>
+        <th>
+            Godina izdanja
+            @*@Html.DisplayNameFor(model => model.godinaIzdanja)*@
+        </th>
+        <th>
+            Jedinična cena
+            @*@Html.DisplayNameFor(model => model.jedCena)*@
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.autor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tiraz)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.izdavastvo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.godinaIzdanja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.jedCena)
+            </td>
+            <td>
+                @Html.ActionLink("Izmeni", "Edit", new { id = item.IDKnjige }) |
+                @Html.ActionLink("Detalji", "Details", new { id = item.IDKnjige })
+            </td>
+        </tr>
+    }
+
+</table>
